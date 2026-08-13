@@ -1,0 +1,13 @@
+name: PlayEncantamento
+version: 1.0
+main: me.manus.customenchants.CustomEnchants
+bootstrapper: me.manus.customenchants.CustomEnchantsBootstrap
+api-version: '1.21'
+authors: [_Nube]
+description: Plugin de encantamentos personalizados e níveis vanilla aumentados.
+
+commands:
+  ce:
+    description: Comando principal do PlayEncantamento
+    permission: customenchants.admin
+    usage: /<command> <enchantment> <level>

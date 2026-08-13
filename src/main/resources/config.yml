@@ -1,0 +1,115 @@
+# Configuração PlayEncantamento v10.0 Eternal Edition
+# Autor: _Nube
+
+settings:
+  use_vault: true
+  use_xp: true
+  check_updates: true
+  enable_auras: true
+  enable_set_bonuses: true
+  enable_boss_loot: true
+  max_sockets: 3
+
+# Configurações de Encantamentos
+enchantments:
+  lifesteal:
+    enabled: true
+    heal_multiplier: 0.05
+    cooldown: 2.0
+    cost_money: 5000.0
+    cost_xp: 10
+    rarity: RARO
+    messages:
+      action_bar: "&c+<amount>❤"
+      cooldown: "&6Aguarde <time>s!"
+  explosive_pickaxe:
+    enabled: true
+    area_radius: 1
+    break_bedrock: false
+    cost_money: 10000.0
+    cost_xp: 30
+    rarity: LENDÁRIO
+  thunder_aspect:
+    enabled: true
+    chance_per_level: 0.2
+    damage: 5.0
+    cooldown: 5.0
+    cost_money: 3000.0
+    cost_xp: 5
+    rarity: INCOMUM
+    effects:
+      lightning: true
+      sound: true
+      particles: true
+  telekinesis:
+    enabled: true
+    cost_money: 7500.0
+    cost_xp: 20
+    rarity: RARO
+  vampirism:
+    enabled: true
+    night_damage_bonus: 1.5
+    cost_money: 8000.0
+    cost_xp: 25
+    rarity: ÉPICO
+  soulbound:
+    enabled: true
+    cost_money: 20000.0
+    cost_xp: 50
+    rarity: MÍTICO
+  flight:
+    enabled: true
+    cost_money: 50000.0
+    cost_xp: 100
+    rarity: MÍTICO
+  hardened:
+    enabled: true
+    damage_reduction_per_level: 0.05
+    cost_money: 6000.0
+    cost_xp: 15
+    rarity: RARO
+  mending_two:
+    enabled: true
+    repair_interval_seconds: 10
+    xp_cost_per_repair: 2
+    cost_money: 100000.0
+    cost_xp: 150
+    rarity: LENDÁRIO
+  berserker:
+    enabled: true
+    damage_bonus_multiplier: 2.0
+    cost_money: 15000.0
+    cost_xp: 40
+    rarity: ÉPICO
+  frostbite:
+    enabled: true
+    freeze_chance_per_level: 0.1
+    cost_money: 12000.0
+    cost_xp: 35
+    rarity: RARO
+  divine_aura:
+    enabled: true
+    radius: 5
+    buff_duration_seconds: 5
+    cost_money: 250000.0
+    cost_xp: 500
+    rarity: DIVINO
+
+# Limites de níveis para encantamentos Vanilla
+vanilla_overrides:
+  efficiency: 10
+  fortune: 10
+  sharpness: 10
+  protection: 10
+  unbreaking: 10
+
+# Tiers e Cores
+tiers:
+  COMUM: "&f"
+  INCOMUM: "&7"
+  RARO: "&b"
+  ÉPICO: "&5"
+  LENDÁRIO: "&6"
+  MÍTICO: "&d"
+  DIVINO: "&e&l"
+  DEMONÍACO: "&4&l"

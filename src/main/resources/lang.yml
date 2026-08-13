@@ -1,0 +1,35 @@
+# Configuração de Mensagens - PlayEncantamento v10.0
+# Use & para cores (ex: &a para verde)
+
+prefix: "&8[&bPlayEncantamento&8] "
+no_permission: "&cVocê não tem permissão para usar este comando."
+only_players: "&cEste comando só pode ser executado por jogadores."
+config_reloaded: "&aConfiguração e mensagens recarregadas!"
+unknown_enchantment: "&cEncantamento desconhecido."
+invalid_level: "&cO nível deve ser um número válido."
+item_applied: "&aEncantamento aplicado com sucesso!"
+hold_item: "&cVocê deve estar segurando um item!"
+insufficient_funds: "&cDinheiro insuficiente! Necessário: &a${cost}"
+insufficient_xp: "&cXP insuficiente! Necessário: &e{cost} níveis"
+
+# Mensagens de Encantamentos
+enchant_activated: "&d&l✨ {enchant} ATIVADO ✨"
+target_frozen: "&b&lALVO CONGELADO!"
+berserker_fury: "&c&lFÚRIA BERSERKER ATIVADA!"
+cooldown_message: "&cAguarde {time}s para usar {enchant} novamente!"
+enchant_evolved: "&d&l✨ SEU ENCANTAMENTO EVOLUIU! ✨"
+
+# Orbes e Especiais
+orb_name: "&d&lOrbe de Encantamento: &f{enchant}"
+orb_applied: "&d&l✨ ORBE APLICADO COM SUCESSO ✨"
+orb_failed: "&c&l💥 O ORBE FALHOU E SE QUEBROU! 💥"
+magic_dust_name: "&e&lPó Mágico (+{percent}%)"
+magic_dust_applied: "&e&l✨ CHANCE DE SUCESSO AUMENTADA! ✨"
+black_scroll_success: "&a&l✨ ENCANTAMENTO EXTRAÍDO COM SUCESSO! ✨"
+white_scroll_saved: "&f&lO PERGAMINHO DE PROTEÇÃO SALVOU SEU ITEM!"
+
+# Gemas
+gem_applied: "&a&l✨ GEMA ENCRUSTADA COM SUCESSO! ✨"
+socket_added: "&6&l✨ NOVO ENGASTE ADICIONADO! ✨"
+socket_limit: "&cEste item já atingiu o limite de engastes!"
+no_empty_sockets: "&cNão há engastes vazios neste item!"
