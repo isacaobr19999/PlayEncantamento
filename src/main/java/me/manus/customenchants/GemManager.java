@@ -60,7 +60,7 @@ public class GemManager {
         }
 
         // Ruby (Strength)
-        AttributeInstance attackDamage = player.getAttribute(Attribute.ATTACK_DAMAGE);
+        AttributeInstance attackDamage = player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE);
         if (attackDamage != null) {
             attackDamage.removeModifier(RUBY_KEY);
             if (rubyCount > 0) {
@@ -69,7 +69,7 @@ public class GemManager {
         }
 
         // Topaz (Speed)
-        AttributeInstance movementSpeed = player.getAttribute(Attribute.MOVEMENT_SPEED);
+        AttributeInstance movementSpeed = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (movementSpeed != null) {
             movementSpeed.removeModifier(TOPAZ_KEY);
             if (topazCount > 0) {

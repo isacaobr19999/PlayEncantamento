@@ -50,7 +50,7 @@ public class LifestealEnchantmentListener implements Listener {
                 double multiplier = plugin.getConfig().getDouble("enchantments.lifesteal.heal_multiplier", 0.05);
                 double healAmount = damage * (multiplier * level);
 
-                double maxHealth = player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getValue();
+                double maxHealth = player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getValue();
                 double newHealth = Math.min(player.getHealth() + healAmount, maxHealth);
                 player.setHealth(newHealth);
                 
