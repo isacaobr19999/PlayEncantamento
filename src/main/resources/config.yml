@@ -1,4 +1,4 @@
-# Configuração PlayEncantamento v10.0 Eternal Edition
+# Configuração PlayEncantamento v11.0 (Eternal Edition)
 # Autor: _Nube
 
 settings:
@@ -9,7 +9,14 @@ settings:
   enable_set_bonuses: true
   enable_boss_loot: true
   max_sockets: 3
+  disenchant_cost_xp: 50
+  disenchant_orb_return_chance: 0.5
+  xp_per_level_required: 1000.0
 
+gui:
+  title: "&b&lPlayEncantamento &8- &fMenu"
+  filler_item: "BLACK_STAINED_GLASS_PANE"
+  
 # Configurações de Encantamentos
 enchantments:
   lifesteal:
@@ -37,10 +44,6 @@ enchantments:
     cost_money: 3000.0
     cost_xp: 5
     rarity: INCOMUM
-    effects:
-      lightning: true
-      sound: true
-      particles: true
   telekinesis:
     enabled: true
     cost_money: 7500.0

@@ -1,5 +1,11 @@
 package me.manus.customenchants;
 
+import me.manus.customenchants.commands.EnchantCommand;
+import me.manus.customenchants.hooks.PlayEncantamentoExpansion;
+import me.manus.customenchants.listeners.*;
+import me.manus.customenchants.managers.*;
+import me.manus.customenchants.utils.NBTUtils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,8 +24,14 @@ public class CustomEnchants extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // 1. Inicializar Configuração e Mensagens
+        saveDefaultConfig();
         this.langManager = new LangManager(this);
+        
+        // 2. Inicializar Utilitários
         NBTUtils.init(this);
+        
+        // 3. Inicializar Managers
         this.cooldownManager = new CooldownManager();
         this.guiManager = new GUIManager(this);
         this.orbManager = new OrbManager(this);
@@ -28,42 +40,56 @@ public class CustomEnchants extends JavaPlugin {
         this.setBonusManager = new SetBonusManager(this);
         this.gemManager = new GemManager(this);
         
-        // PlaceholderAPI Integration
+        // 4. Registrar Hooks Externos
+        setupHooks();
+        
+        // 5. Registrar Listeners
+        registerListeners();
+        
+        // 6. Registrar Comandos
+        registerCommands();
+        
+        getLogger().info("PlayEncantamento v" + getDescription().getVersion() + " habilitado com sucesso!");
+    }
+
+    private void setupHooks() {
+        // PlaceholderAPI
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlayEncantamentoExpansion(this).register();
-            getLogger().info("Integração com PlaceholderAPI habilitada!");
+            getLogger().info("Hook: PlaceholderAPI detectado.");
         }
         
-        // Setup Economy
+        // Vault (Economy)
         if (!setupEconomy()) {
             getLogger().warning("Vault não encontrado! Sistema de economia desabilitado.");
         }
+    }
 
-        // Salvar configuração padrão
-        saveDefaultConfig();
+    private void registerListeners() {
+        var pm = Bukkit.getPluginManager();
         
-        // Plugin startup logic
-        getLogger().info("PlayEncantamento habilitado!");
-
-        // Registrar listeners dos encantamentos
-        Bukkit.getPluginManager().registerEvents(new LifestealEnchantmentListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new ExplosivePickaxeEnchantmentListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new ThunderAspectEnchantmentListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new TelekinesisEnchantmentListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new VampirismEnchantmentListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new SoulboundListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new FlightEnchantmentListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new HardenedEnchantmentListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new BerserkerListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new FrostbiteListener(this), this);
-        new MendingTwoListener(this); // Task interna
-        Bukkit.getPluginManager().registerEvents(guiManager, this);
-        Bukkit.getPluginManager().registerEvents(orbManager, this);
-        Bukkit.getPluginManager().registerEvents(new EliteVisualsListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new BossLootListener(this), this);
+        // Encantamentos
+        pm.registerEvents(new LifestealEnchantmentListener(this), this);
+        pm.registerEvents(new ExplosivePickaxeEnchantmentListener(this), this);
+        pm.registerEvents(new ThunderAspectEnchantmentListener(this), this);
+        pm.registerEvents(new TelekinesisEnchantmentListener(this), this);
+        pm.registerEvents(new VampirismEnchantmentListener(this), this);
+        pm.registerEvents(new SoulboundListener(this), this);
+        pm.registerEvents(new FlightEnchantmentListener(this), this);
+        pm.registerEvents(new HardenedEnchantmentListener(this), this);
+        pm.registerEvents(new BerserkerListener(this), this);
+        pm.registerEvents(new FrostbiteListener(this), this);
+        
+        // Mecânicas Especiais
+        new MendingTwoListener(this);
+        pm.registerEvents(guiManager, this);
+        pm.registerEvents(orbManager, this);
+        pm.registerEvents(new EliteVisualsListener(this), this);
+        pm.registerEvents(new BossLootListener(this), this);
         new DivineAuraListener(this);
+    }
 
-        // Registrar comando
+    private void registerCommands() {
         if (getCommand("ce") != null) {
             EnchantCommand enchantCommand = new EnchantCommand(this);
             getCommand("ce").setExecutor(enchantCommand);
@@ -71,41 +97,27 @@ public class CustomEnchants extends JavaPlugin {
         }
     }
 
-    public CooldownManager getCooldownManager() {
-        return cooldownManager;
-    }
-
-    public GUIManager getGuiManager() {
-        return guiManager;
-    }
-
-    public OrbManager getOrbManager() {
-        return orbManager;
-    }
-
-    public LangManager getLangManager() {
-        return langManager;
-    }
+    public CooldownManager getCooldownManager() { return cooldownManager; }
+    public GUIManager getGuiManager() { return guiManager; }
+    public OrbManager getOrbManager() { return orbManager; }
+    public LangManager getLangManager() { return langManager; }
+    public CraftingManager getCraftingManager() { return craftingManager; }
+    public AuraManager getAuraManager() { return auraManager; }
+    public SetBonusManager getSetBonusManager() { return setBonusManager; }
+    public GemManager getGemManager() { return gemManager; }
 
     private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
+        if (getServer().getPluginManager().getPlugin("Vault") == null) return false;
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
+        if (rsp == null) return false;
         econ = rsp.getProvider();
         return econ != null;
     }
 
-    public static Economy getEconomy() {
-        return econ;
-    }
+    public static Economy getEconomy() { return econ; }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
         getLogger().info("PlayEncantamento desabilitado!");
     }
 }

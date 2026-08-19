@@ -1,4 +1,5 @@
-# Configuração de Mensagens - PlayEncantamento v10.0
+# Configuração de Mensagens - PlayEncantamento v11.0
+# Autor: _Nube
 # Use & para cores (ex: &a para verde)
 
 prefix: "&8[&bPlayEncantamento&8] "
@@ -11,6 +12,19 @@ item_applied: "&aEncantamento aplicado com sucesso!"
 hold_item: "&cVocê deve estar segurando um item!"
 insufficient_funds: "&cDinheiro insuficiente! Necessário: &a${cost}"
 insufficient_xp: "&cXP insuficiente! Necessário: &e{cost} níveis"
+player_not_found: "&cJogador não encontrado."
+usage_main: "&cTipo de uso: /ce <menu|reload|orb|dust|whitescroll|blackscroll|gem|socket|give>"
+usage_orb: "&cUso: /ce orb <id> [chance]"
+usage_dust: "&cUso: /ce dust [percentual]"
+usage_gem: "&cUso: /ce gem <ruby|sapphire|emerald|topaz>"
+usage_give: "&cUso: /ce give <player> <enchantment> [level]"
+orb_created: "&aOrbe de {enchant} ({chance}%) criado!"
+dust_created: "&ePó Mágico (+{percent}%) criado!"
+scroll_created: "&fPergaminho de Proteção criado!"
+black_scroll_created: "&8Pergaminho Negro criado!"
+gem_created: "&aGema de {type} criada!"
+socket_tool_created: "&6Ferramenta de Engaste criada!"
+enchant_applied_target: "&aEncantamento {enchant} aplicado a {player}!"
 
 # Mensagens de Encantamentos
 enchant_activated: "&d&l✨ {enchant} ATIVADO ✨"
