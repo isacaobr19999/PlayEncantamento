@@ -1,5 +1,14 @@
 # Changelog
 
+## 10.2.1 — 2026-08-26
+
+### Correções
+
+- Substituído o evento incompatível `freeze()` pelo evento `compose()` para registrar encantamentos customizados no Paper 1.21.11.
+- Atualizada a dependência Paper API para 1.21.11.
+- Atualizados os nomes dos atributos Bukkit renomeados na API 1.21.11.
+- Corrigido o erro de carregamento que impedia o servidor de reconhecer o plugin.
+
 ## 10.2.0 — 2026-08-26
 
 Esta versão reúne melhorias de segurança operacional, validação de comandos, lifecycle e testes automatizados.

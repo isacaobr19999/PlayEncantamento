@@ -38,8 +38,8 @@ public class CustomEnchantsBootstrap implements PluginBootstrap {
             event.builder().maxLevel(10);
         }).filter(EnchantmentKeys.UNBREAKING));
 
-        // Registrar encantamentos personalizados usando freeze()
-        context.getLifecycleManager().registerEventHandler(RegistryEvents.ENCHANTMENT.freeze().newHandler(event -> {
+        // Registrar encantamentos personalizados no evento compose do Paper 1.21.11.
+        context.getLifecycleManager().registerEventHandler(RegistryEvents.ENCHANTMENT.compose().newHandler(event -> {
             // Lifesteal
             event.registry().register(
                     TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("customenchants:lifesteal")),

@@ -31,7 +31,7 @@ public class BerserkerListener implements Listener {
 
         if (hand != null && hand.hasItemMeta() && hand.getItemMeta().hasEnchant(berserkerEnchantment)) {
             int level = hand.getItemMeta().getEnchantLevel(berserkerEnchantment);
-            double healthPercent = player.getHealth() / player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getValue();
+            double healthPercent = player.getHealth() / player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getValue();
             
             if (healthPercent < 0.5) { // Ativa abaixo de 50% de vida
                 double bonus = (1.0 - healthPercent) * level * 2.0;
