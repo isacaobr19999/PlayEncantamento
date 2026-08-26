@@ -39,7 +39,8 @@ public class SoulboundListener implements Listener {
         List<ItemStack> toRemoveFromDrops = new ArrayList<>();
 
         for (ItemStack item : drops) {
-            if (item != null && item.hasItemMeta() && item.getItemMeta().hasEnchant(soulboundEnchantment)) {
+            if (soulboundEnchantment != null && item != null && item.hasItemMeta()
+                    && item.getItemMeta().hasEnchant(soulboundEnchantment)) {
                 toSave.add(item.clone());
                 toRemoveFromDrops.add(item);
                 EnchantXPManager.addXP(player, item, "soulbound", 100.0);
@@ -58,7 +59,8 @@ public class SoulboundListener implements Listener {
         if (savedItems.containsKey(player.getUniqueId())) {
             List<ItemStack> items = savedItems.remove(player.getUniqueId());
             for (ItemStack item : items) {
-                player.getInventory().addItem(item);
+                player.getInventory().addItem(item).values().forEach(leftover ->
+                        player.getWorld().dropItemNaturally(player.getLocation(), leftover));
             }
         }
     }

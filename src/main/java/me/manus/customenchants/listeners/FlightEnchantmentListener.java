@@ -9,6 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +20,7 @@ public class FlightEnchantmentListener implements Listener {
 
     private final JavaPlugin plugin;
     private final Enchantment flightEnchantment;
+    private final Set<UUID> grantedFlight = new HashSet<>();
 
     public FlightEnchantmentListener(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -34,12 +39,17 @@ public class FlightEnchantmentListener implements Listener {
         if (hasFlight) {
             if (!player.getAllowFlight()) {
                 player.setAllowFlight(true);
+                grantedFlight.add(player.getUniqueId());
             }
-        } else {
-            if (player.getAllowFlight()) {
-                player.setAllowFlight(false);
-                player.setFlying(false);
-            }
+        } else if (grantedFlight.remove(player.getUniqueId())) {
+            // Remove somente o voo concedido por este plugin.
+            player.setAllowFlight(false);
+            player.setFlying(false);
         }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        grantedFlight.remove(event.getPlayer().getUniqueId());
     }
 }

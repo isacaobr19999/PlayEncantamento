@@ -4,6 +4,7 @@ import me.manus.customenchants.CustomEnchants;
 import me.manus.customenchants.managers.LoreManager;
 import me.manus.customenchants.managers.LangManager;
 import me.manus.customenchants.utils.NBTUtils;
+import me.manus.customenchants.utils.CommandValidation;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
@@ -80,7 +81,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                         return true;
                     }
                 }
-                if (chance < 0 || chance > 100) {
+                if (!CommandValidation.isPercentage(chance)) {
                     player.sendMessage(lang.getMessage("invalid_level"));
                     return true;
                 }
@@ -99,7 +100,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                         return true;
                     }
                 }
-                if (percent < 0 || percent > 100) {
+                if (!CommandValidation.isPercentage(percent)) {
                     player.sendMessage(lang.getMessage("invalid_level"));
                     return true;
                 }
@@ -156,7 +157,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                         return true;
                     }
                 }
-                if (level < 1 || level > 255) {
+                if (!CommandValidation.isEnchantmentLevel(level)) {
                     sender.sendMessage(lang.getMessage("invalid_level"));
                     return true;
                 }
@@ -200,7 +201,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                         player.sendMessage(lang.getMessage("no_permission"));
                         return true;
                     }
-                    if (level < 1 || level > 255) {
+                    if (!CommandValidation.isEnchantmentLevel(level)) {
                         player.sendMessage(lang.getMessage("invalid_level"));
                         return true;
                     }
