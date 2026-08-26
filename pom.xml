@@ -5,7 +5,7 @@
 
     <groupId>me.manus</groupId>
     <artifactId>PlayEncantamento</artifactId>
-    <version>10.1</version>
+    <version>10.2.0</version>
     <name>PlayEncantamento</name>
 
     <properties>

@@ -31,7 +31,7 @@
    - (Opcional) *Vault* + Plugin de Economia e *PlaceholderAPI* para funcionalidade completa.
 2. **Instalação**:
    - Baixe a versão mais recente do JAR na aba [Releases](../../releases).
-   - Coloque o arquivo `PlayEncantamento-1.0-SNAPSHOT.jar` na pasta `plugins/` do seu servidor.
+   - Coloque o arquivo `PlayEncantamento-10.2.0.jar` na pasta `plugins/` do seu servidor.
    - Inicie ou reinicie o servidor para gerar os arquivos de configuração (`config.yml` e `lang.yml`).
 
 ---
@@ -66,7 +66,8 @@ Além de `/ce menu`, o plugin oferece `/ce reload`, `/ce give <jogador> <encanta
 
 ## Build e validação
 
-O projeto usa Java 21. Para compilar de forma reproduzível, execute `./mvnw -B clean verify`. O mesmo comando é executado automaticamente pelo GitHub Actions em pushes e pull requests. O plugin deve ser validado em um servidor Paper 1.21.x com versões compatíveis das dependências externas.
+A versão atual é **10.2.0** e usa Java 21. Para compilar de forma reproduzível, execute `./mvnw -B clean verify`.
+ O mesmo comando é executado automaticamente pelo GitHub Actions em pushes e pull requests. O plugin deve ser validado em um servidor Paper 1.21.x com versões compatíveis das dependências externas.
 
 ## Limitações conhecidas
 

@@ -1,5 +1,18 @@
 # Changelog
 
+## 10.2.0 — 2026-08-26
+
+Esta versão reúne melhorias de segurança operacional, validação de comandos, lifecycle e testes automatizados.
+
+### Alterações principais
+
+- Permissões granulares para menu, reload, concessão, criação de itens e aplicação de encantamentos.
+- Validação de percentuais e níveis de encantamento.
+- Proteção contra perda de itens em inventários cheios.
+- Correção do controle de voo para preservar permissões concedidas por outras fontes.
+- Recuperação segura de itens Soulbound no respawn.
+- Maven Wrapper, GitHub Actions e testes unitários JUnit 5.
+
 ## Unreleased
 
 ### Corrigido
