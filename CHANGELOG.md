@@ -1,5 +1,12 @@
 # Changelog
 
+## 10.2.2 — 2026-08-26
+
+### Correção crítica de inicialização
+
+- Substituída a tag inexistente `minecraft:enchantable/vanishing_revealable` pela tag oficial `ENCHANTABLE_VANISHING` do Paper 1.21.11.
+- Corrigida a falha `Missing tag` que impedia o carregamento dos datapacks e bloqueava a inicialização do servidor.
+
 ## 10.2.1 — 2026-08-26
 
 ### Correções

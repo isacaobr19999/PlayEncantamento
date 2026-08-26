@@ -8,6 +8,7 @@ import io.papermc.paper.registry.data.EnchantmentRegistryEntry;
 import io.papermc.paper.registry.event.RegistryEvents;
 import io.papermc.paper.registry.keys.EnchantmentKeys;
 import io.papermc.paper.registry.tag.TagKey;
+import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.EquipmentSlotGroup;
@@ -109,7 +110,7 @@ public class CustomEnchantsBootstrap implements PluginBootstrap {
             event.registry().register(
                     TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("customenchants:soulbound")),
                     b -> b.description(Component.text("Vínculo de Alma"))
-                            .supportedItems(event.getOrCreateTag(TagKey.create(RegistryKey.ITEM, Key.key("minecraft:enchantable/vanishing_revealable"))))
+                            .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_VANISHING))
                             .anvilCost(10)
                             .maxLevel(1)
                             .weight(1)

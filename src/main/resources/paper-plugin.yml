@@ -1,5 +1,5 @@
 name: PlayEncantamento
-version: 10.2.1
+version: 10.2.2
 main: me.manus.customenchants.CustomEnchants
 bootstrapper: me.manus.customenchants.CustomEnchantsBootstrap
 api-version: '1.21'
