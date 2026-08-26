@@ -8,3 +8,6 @@
 .DS_Store
 *.log
 *.iml
+/target/
+/.mvn/timing.properties
+*.class

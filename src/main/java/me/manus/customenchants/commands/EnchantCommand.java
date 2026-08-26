@@ -45,12 +45,10 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
         String sub = args[0].toLowerCase();
 
-        // Admin commands check
-        if (Arrays.asList("reload", "orb", "dust", "whitescroll", "blackscroll", "gem", "socket", "give").contains(sub)) {
-            if (!sender.hasPermission("customenchants.admin")) {
-                sender.sendMessage(lang.getMessage("no_permission"));
-                return true;
-            }
+        String requiredPermission = permissionFor(sub);
+        if (requiredPermission != null && !sender.hasPermission(requiredPermission)) {
+            sender.sendMessage(lang.getMessage("no_permission"));
+            return true;
         }
 
         switch (sub) {
@@ -77,10 +75,17 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                 String enchantId = args[1].toLowerCase();
                 int chance = 100;
                 if (args.length >= 3) {
-                    try { chance = Integer.parseInt(args[2]); } catch (NumberFormatException ignored) {}
+                    try { chance = Integer.parseInt(args[2]); } catch (NumberFormatException ignored) {
+                        player.sendMessage(lang.getMessage("invalid_level"));
+                        return true;
+                    }
+                }
+                if (chance < 0 || chance > 100) {
+                    player.sendMessage(lang.getMessage("invalid_level"));
+                    return true;
                 }
                 ItemStack orb = plugin.getOrbManager().createOrb(enchantId, chance);
-                player.getInventory().addItem(orb);
+                giveItem(player, orb);
                 String msg = lang.getRawMessage("orb_created").replace("{enchant}", enchantId).replace("{chance}", String.valueOf(chance));
                 player.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize(msg));
                 return true;
@@ -89,23 +94,30 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                 if (!(sender instanceof Player player)) return true;
                 int percent = 10;
                 if (args.length >= 2) {
-                    try { percent = Integer.parseInt(args[1]); } catch (NumberFormatException ignored) {}
+                    try { percent = Integer.parseInt(args[1]); } catch (NumberFormatException ignored) {
+                        player.sendMessage(lang.getMessage("invalid_level"));
+                        return true;
+                    }
+                }
+                if (percent < 0 || percent > 100) {
+                    player.sendMessage(lang.getMessage("invalid_level"));
+                    return true;
                 }
                 ItemStack dust = plugin.getOrbManager().createMagicDust(percent);
-                player.getInventory().addItem(dust);
+                giveItem(player, dust);
                 String msg = lang.getRawMessage("dust_created").replace("{percent}", String.valueOf(percent));
                 player.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize(msg));
                 return true;
             }
             case "whitescroll" -> {
                 if (!(sender instanceof Player player)) return true;
-                player.getInventory().addItem(plugin.getOrbManager().createWhiteScroll());
+                giveItem(player, plugin.getOrbManager().createWhiteScroll());
                 player.sendMessage(lang.getMessage("scroll_created"));
                 return true;
             }
             case "blackscroll" -> {
                 if (!(sender instanceof Player player)) return true;
-                player.getInventory().addItem(plugin.getOrbManager().createBlackScroll());
+                giveItem(player, plugin.getOrbManager().createBlackScroll());
                 player.sendMessage(lang.getMessage("black_scroll_created"));
                 return true;
             }
@@ -115,14 +127,14 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                     player.sendMessage(lang.getMessage("usage_gem"));
                     return true;
                 }
-                player.getInventory().addItem(plugin.getOrbManager().createGem(args[1]));
+                giveItem(player, plugin.getOrbManager().createGem(args[1]));
                 String msg = lang.getRawMessage("gem_created").replace("{type}", args[1]);
                 player.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize(msg));
                 return true;
             }
             case "socket" -> {
                 if (!(sender instanceof Player player)) return true;
-                player.getInventory().addItem(plugin.getOrbManager().createSocketAdder());
+                giveItem(player, plugin.getOrbManager().createSocketAdder());
                 player.sendMessage(lang.getMessage("socket_tool_created"));
                 return true;
             }
@@ -139,9 +151,16 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                 String enchantName = args[2].toLowerCase();
                 int level = 1;
                 if (args.length >= 4) {
-                    try { level = Integer.parseInt(args[3]); } catch (NumberFormatException ignored) {}
+                    try { level = Integer.parseInt(args[3]); } catch (NumberFormatException ignored) {
+                        sender.sendMessage(lang.getMessage("invalid_level"));
+                        return true;
+                    }
                 }
-                
+                if (level < 1 || level > 255) {
+                    sender.sendMessage(lang.getMessage("invalid_level"));
+                    return true;
+                }
+
                 Enchantment enchantment = getEnchantment(enchantName);
                 if (enchantment == null) {
                     sender.sendMessage(lang.getMessage("unknown_enchantment"));
@@ -177,6 +196,15 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                         return true;
                     }
 
+                    if (!player.hasPermission("customenchants.enchant")) {
+                        player.sendMessage(lang.getMessage("no_permission"));
+                        return true;
+                    }
+                    if (level < 1 || level > 255) {
+                        player.sendMessage(lang.getMessage("invalid_level"));
+                        return true;
+                    }
+
                     Enchantment enchantment = getEnchantment(enchantName);
                     if (enchantment == null) {
                         player.sendMessage(lang.getMessage("unknown_enchantment"));
@@ -204,6 +232,23 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         }
     }
 
+    private void giveItem(Player player, ItemStack item) {
+        if (item == null || item.getType().isAir()) return;
+        plugin.getLogger().fine("Entregando item " + item.getType() + " para " + player.getName());
+        player.getInventory().addItem(item).values().forEach(leftover ->
+                player.getWorld().dropItemNaturally(player.getLocation(), leftover));
+    }
+
+    private String permissionFor(String sub) {
+        return switch (sub) {
+            case "reload" -> "customenchants.reload";
+            case "give" -> "customenchants.give";
+            case "orb", "dust", "whitescroll", "blackscroll", "gem", "socket" -> "customenchants.items";
+            case "menu" -> "customenchants.menu";
+            default -> "customenchants.enchant";
+        };
+    }
+
     private Enchantment getEnchantment(String name) {
         return switch (name.toLowerCase()) {
             case "lifesteal" -> RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT).get(Key.key("customenchants:lifesteal"));
@@ -229,7 +274,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        if (!sender.hasPermission("customenchants.admin")) {
+        if (!sender.hasPermission("customenchants.admin") && !sender.hasPermission("customenchants.enchant")) {
             if (args.length == 1 && "menu".startsWith(args[0].toLowerCase())) return List.of("menu");
             return Collections.emptyList();
         }

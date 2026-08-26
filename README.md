@@ -50,3 +50,24 @@ Este projeto é distribuído sob a licença MIT. Sinta-se à vontade para contri
 
 ---
 *Autor: **_Nube***
+
+## Permissões
+
+- `customenchants.menu`: permite abrir o menu; padrão: todos os jogadores.
+- `customenchants.reload`: permite recarregar configurações; padrão: operadores.
+- `customenchants.give`: permite conceder encantamentos; padrão: operadores.
+- `customenchants.items`: permite criar orbes, gemas, pó e ferramentas; padrão: operadores.
+- `customenchants.enchant`: permite aplicar encantamentos diretamente; padrão: operadores.
+- `customenchants.admin`: grupo administrativo que inclui as permissões acima.
+
+## Comandos administrativos
+
+Além de `/ce menu`, o plugin oferece `/ce reload`, `/ce give <jogador> <encantamento> [nível]`, `/ce orb <encantamento> [chance]`, `/ce dust [percentual]`, `/ce whitescroll`, `/ce blackscroll`, `/ce gem <tipo>` e `/ce socket`. Os comandos administrativos exigem a permissão correspondente.
+
+## Build e validação
+
+O projeto usa Java 21. Para compilar de forma reproduzível, execute `./mvnw -B clean verify`. O mesmo comando é executado automaticamente pelo GitHub Actions em pushes e pull requests. O plugin deve ser validado em um servidor Paper 1.21.x com versões compatíveis das dependências externas.
+
+## Limitações conhecidas
+
+O repositório ainda não contém testes automatizados de integração com um servidor Paper. Antes de usar em produção, recomenda-se testar inventários, duplo clique, inventário cheio, economia, reload, voo, mineração em área e as integrações de proteção em um servidor de homologação.

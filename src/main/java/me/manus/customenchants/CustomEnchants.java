@@ -118,6 +118,8 @@ public class CustomEnchants extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Bukkit.getScheduler().cancelTasks(this);
+        econ = null;
         getLogger().info("PlayEncantamento desabilitado!");
     }
 }

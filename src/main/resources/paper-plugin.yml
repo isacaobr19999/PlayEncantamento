@@ -9,5 +9,29 @@ description: Plugin de encantamentos personalizados e níveis vanilla aumentados
 commands:
   ce:
     description: Comando principal do PlayEncantamento
-    permission: customenchants.admin
-    usage: /<command> <enchantment> <level>
+    permission: customenchants.menu
+    usage: /<command> <subcomando> [argumentos]
+permissions:
+  customenchants.menu:
+    description: Permite abrir o menu de encantamentos
+    default: true
+  customenchants.admin:
+    description: Permite executar todas as operações administrativas
+    default: op
+    children:
+      customenchants.reload: true
+      customenchants.give: true
+      customenchants.items: true
+      customenchants.enchant: true
+  customenchants.reload:
+    description: Permite recarregar as configurações
+    default: op
+  customenchants.give:
+    description: Permite conceder encantamentos a jogadores
+    default: op
+  customenchants.items:
+    description: Permite criar orbes, gemas, pó e ferramentas
+    default: op
+  customenchants.enchant:
+    description: Permite aplicar encantamentos diretamente
+    default: op
