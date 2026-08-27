@@ -1,5 +1,14 @@
 # Changelog
 
+## 10.2.5 — 2026-08-27
+
+### Correção crítica de comandos
+
+- Removida a declaração YAML de `/ce` do `paper-plugin.yml`.
+- Migrado o registro de `/ce` para `JavaPlugin#registerCommand` com `BasicCommand`.
+- Corrigido o erro `UnsupportedOperationException` causado por `JavaPlugin#getCommand` em Paper plugins.
+- Mantidos execução, sugestões, validações e permissões do comando.
+
 ## 10.2.4 — 2026-08-27
 
 ### Correção de integração

@@ -31,7 +31,7 @@
    - (Opcional) *Vault* + Plugin de Economia e *PlaceholderAPI* para funcionalidade completa.
 2. **Instalação**:
    - Baixe a versão mais recente do JAR na aba [Releases](../../releases).
-   - Coloque o arquivo `PlayEncantamento-10.2.4.jar` na pasta `plugins/` do seu servidor.
+   - Coloque o arquivo `PlayEncantamento-10.2.5.jar` na pasta `plugins/` do seu servidor.
    - Inicie ou reinicie o servidor para gerar os arquivos de configuração (`config.yml` e `lang.yml`).
 
 ---
@@ -101,8 +101,8 @@ Não conceda `customenchants.admin` a VIPs ou jogadores comuns. Para retirar exp
 
 ## Build e validação
 
-A versão atual é **10.2.4** e usa Java 21. Para compilar de forma reproduzível, execute `./mvnw -B clean verify`.
- O mesmo comando é executado automaticamente pelo GitHub Actions em pushes e pull requests. O plugin deve ser validado em um servidor Paper 1.21.11 com PlaceholderAPI e Vault instalados quando os hooks correspondentes forem utilizados com versões compatíveis das dependências externas.
+A versão atual é **10.2.5** e usa Java 21. Para compilar de forma reproduzível, execute `./mvnw -B clean verify`.
+ O mesmo comando é executado automaticamente pelo GitHub Actions em pushes e pull requests. O comando `/ce` é registrado pela API de comandos do Paper plugin e não deve ser adicionado a `commands` no `paper-plugin.yml`. O plugin deve ser validado em um servidor Paper 1.21.11 com PlaceholderAPI e Vault instalados quando os hooks correspondentes forem utilizados com versões compatíveis das dependências externas.
 
 ## Limitações conhecidas
 

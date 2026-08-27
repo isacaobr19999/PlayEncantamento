@@ -1,5 +1,5 @@
 name: PlayEncantamento
-version: 10.2.4
+version: 10.2.5
 main: me.manus.customenchants.CustomEnchants
 bootstrapper: me.manus.customenchants.CustomEnchantsBootstrap
 api-version: '1.21'
@@ -19,11 +19,6 @@ dependencies:
       required: false
       join-classpath: true
 
-commands:
-  ce:
-    description: Comando principal do PlayEncantamento
-    permission: customenchants.menu
-    usage: /<command> <subcomando> [argumentos]
 permissions:
   customenchants.menu:
     description: Permite abrir o menu de encantamentos

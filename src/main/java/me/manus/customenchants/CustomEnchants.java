@@ -90,11 +90,18 @@ public class CustomEnchants extends JavaPlugin {
     }
 
     private void registerCommands() {
-        if (getCommand("ce") != null) {
-            EnchantCommand enchantCommand = new EnchantCommand(this);
-            getCommand("ce").setExecutor(enchantCommand);
-            getCommand("ce").setTabCompleter(enchantCommand);
-        }
+        EnchantCommand enchantCommand = new EnchantCommand(this);
+        registerCommand("ce", new io.papermc.paper.command.brigadier.BasicCommand() {
+            @Override
+            public void execute(io.papermc.paper.command.brigadier.CommandSourceStack source, String[] args) {
+                enchantCommand.onCommand(source.getSender(), null, "ce", args);
+            }
+
+            @Override
+            public java.util.Collection<String> suggest(io.papermc.paper.command.brigadier.CommandSourceStack source, String[] args) {
+                return enchantCommand.onTabComplete(source.getSender(), null, "ce", args);
+            }
+        });
     }
 
     public CooldownManager getCooldownManager() { return cooldownManager; }
