@@ -1,5 +1,14 @@
 # Changelog
 
+## 10.2.3 — 2026-08-26
+
+### Permissões e segurança de uso
+
+- Documentada a matriz de acesso para jogadores normais, VIPs, moderadores e administradores.
+- Documentadas as permissões e os comandos administrativos.
+- Corrigido o tab completion para exibir somente subcomandos permitidos ao executor.
+- Registrado que VIPs não devem receber permissões de geração de itens ou administração.
+
 ## 10.2.2 — 2026-08-26
 
 ### Correção crítica de inicialização

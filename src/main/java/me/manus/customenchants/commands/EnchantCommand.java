@@ -275,14 +275,15 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        if (!sender.hasPermission("customenchants.admin") && !sender.hasPermission("customenchants.enchant")) {
-            if (args.length == 1 && "menu".startsWith(args[0].toLowerCase())) return List.of("menu");
-            return Collections.emptyList();
-        }
-
         if (args.length == 1) {
             List<String> subs = List.of("menu", "reload", "orb", "dust", "whitescroll", "blackscroll", "gem", "socket", "give", "lifesteal", "explosive", "thunder", "telekinesis", "vampirism", "soulbound", "flight", "hardened", "mending_two", "berserker", "frostbite", "divine_aura", "efficiency", "fortune", "sharpness", "protection", "unbreaking");
-            return subs.stream().filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
+            return subs.stream()
+                    .filter(s -> {
+                        String permission = permissionFor(s);
+                        return permission == null || sender.hasPermission(permission);
+                    })
+                    .filter(s -> s.startsWith(args[0].toLowerCase()))
+                    .collect(Collectors.toList());
         }
 
         if (args.length == 2) {

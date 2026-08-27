@@ -31,7 +31,7 @@
    - (Opcional) *Vault* + Plugin de Economia e *PlaceholderAPI* para funcionalidade completa.
 2. **Instalação**:
    - Baixe a versão mais recente do JAR na aba [Releases](../../releases).
-   - Coloque o arquivo `PlayEncantamento-10.2.2.jar` na pasta `plugins/` do seu servidor.
+   - Coloque o arquivo `PlayEncantamento-10.2.3.jar` na pasta `plugins/` do seu servidor.
    - Inicie ou reinicie o servidor para gerar os arquivos de configuração (`config.yml` e `lang.yml`).
 
 ---
@@ -51,22 +51,57 @@ Este projeto é distribuído sob a licença MIT. Sinta-se à vontade para contri
 ---
 *Autor: **_Nube***
 
-## Permissões
+## Permissões e perfis de acesso
 
-- `customenchants.menu`: permite abrir o menu; padrão: todos os jogadores.
-- `customenchants.reload`: permite recarregar configurações; padrão: operadores.
-- `customenchants.give`: permite conceder encantamentos; padrão: operadores.
-- `customenchants.items`: permite criar orbes, gemas, pó e ferramentas; padrão: operadores.
-- `customenchants.enchant`: permite aplicar encantamentos diretamente; padrão: operadores.
-- `customenchants.admin`: grupo administrativo que inclui as permissões acima.
+O plugin separa o acesso ao menu público das operações administrativas. As permissões administrativas devem ser configuradas pelo sistema de permissões do servidor, como LuckPerms.
+
+| Permissão | Padrão | Acesso concedido |
+|---|---:|---|
+| `customenchants.menu` | Todos | Abre o menu de encantamentos. |
+| `customenchants.reload` | Operadores | Recarrega configurações e idioma. |
+| `customenchants.give` | Operadores | Concede encantamentos a jogadores. |
+| `customenchants.items` | Operadores | Cria orbes, gemas, pó, scrolls e ferramentas. |
+| `customenchants.enchant` | Operadores | Aplica encantamentos diretamente em itens. |
+| `customenchants.admin` | Operadores | Permissão agrupadora com todas as permissões administrativas acima. |
+
+### Jogador normal
+
+O jogador normal pode usar `customenchants.menu` e utilizar legitimamente os encantamentos presentes nos itens que possuir. Ele não deve receber `customenchants.admin`, `customenchants.give`, `customenchants.items`, `customenchants.reload` ou `customenchants.enchant`.
+
+### VIP
+
+O grupo VIP herda o acesso do jogador normal. Esta versão não concede poderes administrativos automáticos ao VIP e não deve receber `customenchants.admin` nem `customenchants.items`, pois essas permissões permitem gerar itens e podem afetar a economia do servidor.
+
+Para benefícios VIP futuros, utilize permissões separadas, como `customenchants.vip`, `customenchants.vip.xp`, `customenchants.vip.gems` e `customenchants.vip.effects`. Essas permissões só produzirão efeitos quando a respectiva funcionalidade estiver implementada.
+
+### Moderador
+
+Um moderador pode receber apenas as permissões necessárias para suas funções. Uma configuração recomendada é `customenchants.give` e, caso necessário, `customenchants.items`. Não é obrigatório conceder `customenchants.reload` ou `customenchants.enchant`.
+
+### Administrador
+
+O administrador pode receber `customenchants.admin`, que inclui `reload`, `give`, `items` e `enchant`. Como essas permissões podem gerar itens e alterar a economia, o acesso deve ficar restrito à equipe de confiança.
 
 ## Comandos administrativos
 
-Além de `/ce menu`, o plugin oferece `/ce reload`, `/ce give <jogador> <encantamento> [nível]`, `/ce orb <encantamento> [chance]`, `/ce dust [percentual]`, `/ce whitescroll`, `/ce blackscroll`, `/ce gem <tipo>` e `/ce socket`. Os comandos administrativos exigem a permissão correspondente.
+Além de `/ce menu`, o plugin oferece `/ce reload`, `/ce give <jogador> <encantamento> [nível]`, `/ce orb <encantamento> [chance]`, `/ce dust [percentual]`, `/ce whitescroll`, `/ce blackscroll`, `/ce gem <tipo>` e `/ce socket`. Cada subcomando verifica sua permissão correspondente. O tab completion também filtra as sugestões para não exibir operações que o jogador não pode executar.
+
+### Exemplos de LuckPerms
+
+```text
+/lp group default permission set customenchants.menu true
+/lp group vip parent add default
+/lp group vip permission set customenchants.vip true
+/lp group moderador permission set customenchants.give true
+/lp group moderador permission set customenchants.items true
+/lp group admin permission set customenchants.admin true
+```
+
+Não conceda `customenchants.admin` a VIPs ou jogadores comuns. Para retirar explicitamente uma permissão de um grupo, use `false` no LuckPerms quando houver herança conflitante.
 
 ## Build e validação
 
-A versão atual é **10.2.2** e usa Java 21. Para compilar de forma reproduzível, execute `./mvnw -B clean verify`.
+A versão atual é **10.2.3** e usa Java 21. Para compilar de forma reproduzível, execute `./mvnw -B clean verify`.
  O mesmo comando é executado automaticamente pelo GitHub Actions em pushes e pull requests. O plugin deve ser validado em um servidor Paper 1.21.11 com versões compatíveis das dependências externas.
 
 ## Limitações conhecidas
