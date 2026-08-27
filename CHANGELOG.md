@@ -1,5 +1,14 @@
 # Changelog
 
+## 10.2.4 — 2026-08-27
+
+### Correção de integração
+
+- Declarados PlaceholderAPI e Vault como dependências opcionais de servidor.
+- Habilitado `join-classpath` para que as APIs opcionais sejam acessíveis em Paper plugins.
+- Definida ordem de carregamento `BEFORE` para as integrações.
+- Corrigido o `NoClassDefFoundError` de `me.clip.placeholderapi.expansion.PlaceholderExpansion` observado no servidor.
+
 ## 10.2.3 — 2026-08-26
 
 ### Permissões e segurança de uso

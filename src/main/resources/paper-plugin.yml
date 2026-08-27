@@ -1,10 +1,23 @@
 name: PlayEncantamento
-version: 10.2.3
+version: 10.2.4
 main: me.manus.customenchants.CustomEnchants
 bootstrapper: me.manus.customenchants.CustomEnchantsBootstrap
 api-version: '1.21'
 authors: [_Nube]
 description: Plugin de encantamentos personalizados e níveis vanilla aumentados.
+
+# Paper plugins usam isolamento de classloader. As integrações são opcionais,
+# mas o plugin precisa acessar suas APIs quando estiverem instaladas.
+dependencies:
+  server:
+    PlaceholderAPI:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    Vault:
+      load: BEFORE
+      required: false
+      join-classpath: true
 
 commands:
   ce:
